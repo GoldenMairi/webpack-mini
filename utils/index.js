@@ -51,7 +51,7 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
     )
     console.log('# ========================\n')
     const args =
-      data.autoInstall === 'npm'
+      data.autoInstall.includes('npm')
         ? ['run', 'lint', '--', '--fix']
         : ['run', 'lint', '--fix']
     return runCommand(data.autoInstall, args, {
@@ -77,7 +77,7 @@ To get started:
       data
     )}${lintMsg(data)}npm run dev`
   )}
-  
+
 Documentation can be found at https://vuejs-templates.github.io/webpack
 `
   console.log(message)
