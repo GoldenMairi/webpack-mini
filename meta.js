@@ -59,8 +59,7 @@ module.exports = {
     lint: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Use ESLint to lint your code?',
-      default: false
+      message: 'Use ESLint to lint your code?'
     },
     lintConfig: {
       when: 'isNotTest && lint',
