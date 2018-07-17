@@ -51,11 +51,6 @@ module.exports = {
       type: 'string',
       message: 'Author',
     },
-    router: {
-      when: 'isNotTest',
-      type: 'confirm',
-      message: 'Install vue-router?',
-    },
     scss: {
       when: 'isNotTest',
       type: 'confirm',
@@ -114,8 +109,7 @@ module.exports = {
   },
   filters: {
     '.eslintrc.js': 'lint',
-    '.eslintignore': 'lint',
-    'src/router/**/*': 'router',
+    '.eslintignore': 'lint'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
