@@ -56,6 +56,11 @@ module.exports = {
       type: 'confirm',
       message: 'Install vue-router?',
     },
+    scss: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Use scss?',
+    },
     lint: {
       when: 'isNotTest',
       type: 'confirm',
