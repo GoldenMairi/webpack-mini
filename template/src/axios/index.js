@@ -39,7 +39,8 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
   if (apiCfg.load) console.log('loading...')
   instance({
     url,
-    ...(method == 'get' ? { params } : { data: params, method })
+    ...(method == 'get' ? { params } : { data: params, method }),
+    ...axiosCfg
   }).then(({ data }) => {
     if (apiCfg.load) console.log('close-loading...')
     if (apiCfg.code) {
