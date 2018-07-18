@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
     <h1>\{{ msg }}</h1>
-    <h1 @click="uptime(new Date)">\{{ lastime }}</h1>
+    <h3 @click="uptime(new Date)">\{{ lastime }}</h3>
+    <h3 @click="login">登录</h3>
+    <h3 @click="getUserInf">获取用户信息</h3>
+    <h3 @click="loginOut">退出</h3>
     <h2>Essential Links</h2>
     <ul>
       <li>
@@ -98,14 +101,40 @@ export default {
     ...mapState(['lastime'])
   },
   methods:{
-    ...mapMutations([UPTIME])
+    ...mapMutations([UPTIME]),
+    login () {
+      this.axios('LOGIN', {
+        userName: 'admin',
+        password: '5a385be37520b62af6cfccfa440485b7'
+      }).then(
+        res => {
+          console.log(res)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    },
+    getUserInf () {
+      this.axios('USER_INF', {
+        token: '6498f13a00984979aadc5c0173867a72'
+      }).then(
+        res => {
+          console.log(res)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    },
+    loginOut () {}
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1, h2 ,h3{
   font-weight: normal;
 }
 ul {

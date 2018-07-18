@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/efence-service/': {
+				target: 'http://192.168.101.197:8088/efence-service/',
+				changeOrigin: true,
+				pathRewrite: {
+					'^/efence-service': '/'
+				}
+			}
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
