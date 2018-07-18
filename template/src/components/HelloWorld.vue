@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>\{{ msg }}</h1>
+    <h1 @click="uptime(new Date)">\{{ lastime }}</h1>
     <h2>Essential Links</h2>
     <ul>
       <li>
@@ -84,12 +85,20 @@
 </template>
 
 <script>
+import {UPTIME} from '@/store/types'
+import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  computed:{
+    ...mapState(['lastime'])
+  },
+  methods:{
+    ...mapMutations([UPTIME])
   }
 }
 </script>

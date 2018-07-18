@@ -42,14 +42,6 @@ module.exports = {
       type: 'string',
       message: 'Author',
     },
-    vuex: {
-      type: 'confirm',
-      message: 'Use vuex?',
-    },
-    scss: {
-      type: 'confirm',
-      message: 'Use scss?',
-    },
     lint: {
       type: 'confirm',
       message: 'Use ESLint to lint your code?'
@@ -106,8 +98,7 @@ module.exports = {
   },
   filters: {
     '.eslintrc.js': 'lint',
-    '.eslintignore': 'lint',
-    'src/store/**/*': 'vuex'
+    '.eslintignore': 'lint'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

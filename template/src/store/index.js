@@ -1,22 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as types from './types'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0
+    lastime: new Date
   },
   mutations: {
-    increment (state) {
-      state.count++
-    }
-  },
-  actions: {
-    increment ({commit}) {
-      setTimeout(() => {
-        commit('increment')
-      }, 1000)
+    [types.UPTIME](state, data) {
+      state.lastime = data
     }
   }
 })
