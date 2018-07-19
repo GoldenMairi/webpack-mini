@@ -1,11 +1,18 @@
 import Vue from 'vue'
-import App from './App'
 import router from './router'
-import store from './store'
 import axios from './axios'
+import store from './store'
+import {SET_USER_INF} from './store/types'
+import App from './App'
+
+Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
-Vue.prototype.axios = axios
+
+const userInf = localStorage.userInf
+if (userInf) {
+  store.commit(SET_USER_INF, JSON.parse(userInf))
+}
 
 /* eslint-disable no-new */
 new Vue({

@@ -18,7 +18,7 @@ var instance = axios.create({
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   if (typeof response.data == 'string') {
-    console.log('未登录')
+    console.warn('未登录')
   }
   return response
 }, function (error) {
@@ -36,25 +36,26 @@ const apiCfg1 = {
 export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
   const [method, url, apiCfg2 = {}] = apis[apiKey]
   const apiCfg = Object.assign({}, apiCfg1, apiCfg2, apiCfg3)
-  if (apiCfg.load) console.log('loading...')
+  if (apiCfg.load) console.info('loading...')
   instance({
     url,
     ...(method == 'get' ? { params } : { data: params, method }),
     ...axiosCfg
   }).then(({ data }) => {
-    if (apiCfg.load) console.log('close-loading...')
+    if (apiCfg.load) console.info('close-loading...')
     if (apiCfg.code) {
       if (data.code == apiCfg.code) {
         resolve(data)
       } else {
-        if (apiCfg.load && data.msg) console.log(data.msg)
+        if (apiCfg.load && data.msg) console.warn(data.msg)
+        reject(data)
         if (apiCfg.codeErr) apiCfg.codeErr(data)
       }
     } else {
       resolve(data)
     }
   }).catch(err => {
-    if (apiCfg.load) console.log('close-loading...')
+    if (apiCfg.load) console.info('close-loading...')
     reject(err)
     if (apiCfg.reject) apiCfg.reject(err)
   })
