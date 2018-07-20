@@ -8,9 +8,9 @@ const qsFn = params => qs.stringify(params, {
   encode: false
 })
 
-let commit
+let store
 export const getStore = s => {
-  commit = s.commit
+  store = s
   return s
 }
 
@@ -38,19 +38,26 @@ const apiCfg1 = {
   code: 200,
   load: false,
   codeErr: null,
-  reject: null
+  reject: null,
+  param: null
 }
 
 export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
   const [method, url, apiCfg2 = {}] = apis[apiKey]
   const apiCfg = Object.assign({}, apiCfg1, apiCfg2, apiCfg3)
-  if (apiCfg.load) commit(DEAL_LOAD_NUM, 1)
+  if (apiCfg.load) store.commit(DEAL_LOAD_NUM, 1)
+  if (apiCfg.param) {
+    params = {...Object.entries(apiCfg.param).reduce((obj,[key,fn])=>{
+      obj[key] = fn(store.state)
+      return obj
+    }, {}),...params}
+  }
   instance({
     url,
     ...(method == 'get' ? { params } : { data: params, method }),
     ...axiosCfg
   }).then(({ data }) => {
-    if (apiCfg.load) commit(DEAL_LOAD_NUM, -1)
+    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, -1)
     if (apiCfg.code) {
       if (data.code == apiCfg.code) {
         resolve(data)
@@ -63,7 +70,7 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
       resolve(data)
     }
   }).catch(err => {
-    if (apiCfg.load) commit(DEAL_LOAD_NUM, -1)
+    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, -1)
     reject(err)
     if (apiCfg.reject) apiCfg.reject(err)
   })
