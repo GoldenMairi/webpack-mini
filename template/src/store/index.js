@@ -1,28 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as types from './types'
-import {default as axios, getStore} from '../axios'
+import { default as axios, getStore } from '../axios'
 Vue.use(Vuex)
 
 export default getStore(new Vuex.Store({
   state: {
     userInf: null,
     wantPath: null,
-    loadNum: 0
+    loadNum: 0,
+    crt: null
   },
   mutations: {
-    [types.SET_USER_INF] (state, data) {
+    [types.SET_USER_INF](state, data) {
       state.userInf = data
     },
-    [types.SET_WANT_PATH] (state, data) {
+    [types.SET_WANT_PATH](state, data) {
       state.wantPath = data
     },
-    [types.DEAL_LOAD_NUM] (state, data) {
-      state.loadNum = data === 0 ? 0 : (state.loadNum + data)
+    [types.DEAL_LOAD_NUM](state, { data, crt }) {
+      if (data === 0) {
+        state.loadNum = 0
+      } else {
+        state.loadNum += data === 1 ? 1 : crt === state.crt ? -1 : 0
+      }
+    },
+    [types.SET_CRT](state, data) {
+      state.crt = data
     }
   },
   actions: {
-    async [types.LOGIN] ({ commit }, data) {
+    async [types.LOGIN]({ commit }, data) {
       return new Promise(async (resolve, reject) => {
         try {
           const { token } = (await axios('LOGIN', data))
@@ -35,7 +43,7 @@ export default getStore(new Vuex.Store({
         }
       })
     },
-    [types.LOGIN_OUT] ({ commit }) {
+    [types.LOGIN_OUT]({ commit }) {
       localStorage.removeItem('userInf')
       commit(types.SET_USER_INF, null)
     }

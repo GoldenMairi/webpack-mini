@@ -1,7 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
 import * as apis from './apis'
-import { DEAL_LOAD_NUM } from '../store/types'
+import { DEAL_LOAD_NUM, LOGIN_OUT } from '../store/types'
+import router from '../router'
 
 const qsFn = params => qs.stringify(params, {
   allowDots: true,
@@ -26,7 +27,8 @@ var instance = axios.create({
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   if (typeof response.data == 'string') {
-    console.warn('未登录')
+    store.dispatch(LOGIN_OUT)
+    router.push('/HelloWorld')
   }
   return response
 }, function (error) {
@@ -43,9 +45,10 @@ const apiCfg1 = {
 }
 
 export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
+  const crt = store.state.crt
   const [method, url, apiCfg2 = {}] = apis[apiKey]
   const apiCfg = Object.assign({}, apiCfg1, apiCfg2, apiCfg3)
-  if (apiCfg.load) store.commit(DEAL_LOAD_NUM, 1)
+  if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data:1})
   if (apiCfg.param) {
     params = {...Object.entries(apiCfg.param).reduce((obj,[key,fn])=>{
       obj[key] = fn(store.state)
@@ -57,7 +60,7 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
     ...(method == 'get' ? { params } : { data: params, method }),
     ...axiosCfg
   }).then(({ data }) => {
-    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, -1)
+    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data:-1,crt})
     if (apiCfg.code) {
       if (data.code == apiCfg.code) {
         resolve(data)
@@ -70,7 +73,7 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
       resolve(data)
     }
   }).catch(err => {
-    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, -1)
+    if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data:-1,crt})
     reject(err)
     if (apiCfg.reject) apiCfg.reject(err)
   })
