@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>loadNum:\{{loadNum}}</p>
     <div v-if="this.$router.currentRoute.name!='HelloWorld'">
       <router-link v-if="!$store.state.userInf" to="/HelloWorld">登录</router-link>
       <a v-else @click="toLoginOut">退出</a>
@@ -19,6 +20,11 @@ import { LOGIN_OUT } from '@/store/types'
 import { mapActions } from 'vuex'
 export default {
   name: 'App',
+  computed: {
+    loadNum () {
+      return this.$store.state.loadNum
+    }
+  },
   methods: {
     ...mapActions([LOGIN_OUT]),
     toLoginOut () {

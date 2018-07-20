@@ -1,10 +1,18 @@
 import axios from 'axios'
 import qs from 'qs'
 import * as apis from './apis'
+import { DEAL_LOAD_NUM } from '../store/types'
+
 const qsFn = params => qs.stringify(params, {
   allowDots: true,
   encode: false
 })
+
+let commit
+export const getStore = s => {
+  commit = s.commit
+  return s
+}
 
 // axios实例
 var instance = axios.create({
@@ -36,13 +44,13 @@ const apiCfg1 = {
 export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
   const [method, url, apiCfg2 = {}] = apis[apiKey]
   const apiCfg = Object.assign({}, apiCfg1, apiCfg2, apiCfg3)
-  if (apiCfg.load) console.info('loading...')
+  if (apiCfg.load) commit(DEAL_LOAD_NUM, 1)
   instance({
     url,
     ...(method == 'get' ? { params } : { data: params, method }),
     ...axiosCfg
   }).then(({ data }) => {
-    if (apiCfg.load) console.info('close-loading...')
+    if (apiCfg.load) commit(DEAL_LOAD_NUM, -1)
     if (apiCfg.code) {
       if (data.code == apiCfg.code) {
         resolve(data)
@@ -55,7 +63,7 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
       resolve(data)
     }
   }).catch(err => {
-    if (apiCfg.load) console.info('close-loading...')
+    if (apiCfg.load) commit(DEAL_LOAD_NUM, -1)
     reject(err)
     if (apiCfg.reject) apiCfg.reject(err)
   })

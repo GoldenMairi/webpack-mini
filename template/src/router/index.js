@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
-import { SET_WANT_PATH } from '../store/types'
+import { SET_WANT_PATH, DEAL_LOAD_NUM } from '../store/types'
 
 import HelloWorld from '@/components/HelloWorld'
 import Youke from '@/components/Youke'
@@ -61,6 +61,9 @@ router.beforeEach((to, from, next) => {
     store.commit(SET_WANT_PATH, null)
     next()
   }
+})
+router.afterEach(() => {
+  store.commit(DEAL_LOAD_NUM, 0)
 })
 
 export default router

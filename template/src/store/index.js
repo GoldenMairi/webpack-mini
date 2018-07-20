@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as types from './types'
-import axios from '../axios'
+import {default as axios, getStore} from '../axios'
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default getStore(new Vuex.Store({
   state: {
     userInf: null,
-    wantPath: null
+    wantPath: null,
+    loadNum: 0
   },
   mutations: {
     [types.SET_USER_INF] (state, data) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     [types.SET_WANT_PATH] (state, data) {
       state.wantPath = data
+    },
+    [types.DEAL_LOAD_NUM] (state, data) {
+      state.loadNum = data === 0 ? 0 : (state.loadNum + data)
     }
   },
   actions: {
@@ -36,4 +40,4 @@ export default new Vuex.Store({
       commit(types.SET_USER_INF, null)
     }
   }
-})
+}))
