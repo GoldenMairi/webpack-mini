@@ -1,6 +1,5 @@
 // mutation-type
 export const SET_USER_INF = 'setUserInf'
-export const SET_WANT_PATH = 'setWantPath'
 export const DEAL_LOAD_NUM = 'dealLoadNum'
 export const SET_CRT = 'setCrt'
 

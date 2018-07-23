@@ -7,30 +7,26 @@ Vue.use(Vuex)
 export default getStore(new Vuex.Store({
   state: {
     userInf: null,
-    wantPath: null,
     loadNum: 0,
     crt: null
   },
   mutations: {
-    [types.SET_USER_INF](state, data) {
+    [types.SET_USER_INF] (state, data) {
       state.userInf = data
     },
-    [types.SET_WANT_PATH](state, data) {
-      state.wantPath = data
-    },
-    [types.DEAL_LOAD_NUM](state, { data, crt }) {
+    [types.DEAL_LOAD_NUM] (state, { data, crt }) {
       if (data === 0) {
         state.loadNum = 0
       } else {
         state.loadNum += data === 1 ? 1 : crt === state.crt ? -1 : 0
       }
     },
-    [types.SET_CRT](state, data) {
+    [types.SET_CRT] (state, data) {
       state.crt = data
     }
   },
   actions: {
-    async [types.LOGIN]({ commit }, data) {
+    async [types.LOGIN] ({ commit }, data) {
       return new Promise(async (resolve, reject) => {
         try {
           const { token } = (await axios('LOGIN', data))
@@ -43,9 +39,16 @@ export default getStore(new Vuex.Store({
         }
       })
     },
-    [types.LOGIN_OUT]({ commit }) {
-      localStorage.removeItem('userInf')
-      commit(types.SET_USER_INF, null)
+    [types.LOGIN_OUT] ({ commit }) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          localStorage.removeItem('userInf')
+          commit(types.SET_USER_INF, null)
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
+      })
     }
   }
 }))

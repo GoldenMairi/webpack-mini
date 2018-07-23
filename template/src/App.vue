@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <p>loadNum:\{{loadNum}}</p>
-    <div v-if="this.$router.currentRoute.name!='HelloWorld'">
-      <router-link v-if="!$store.state.userInf" to="/HelloWorld">登录</router-link>
+    <div v-if="$router.currentRoute.path!=loginRouter">
+      <router-link v-if="!$store.state.userInf" :to="loginRouter">登录</router-link>
       <a v-else @click="toLoginOut">退出</a>
     </div>
     <ul>
@@ -17,9 +17,15 @@
 
 <script>
 import { LOGIN_OUT } from '@/store/types'
+import { LOGIN_ROUTER } from '@/router'
 import { mapActions } from 'vuex'
 export default {
   name: 'App',
+  data () {
+    return {
+      loginRouter: LOGIN_ROUTER
+    }
+  },
   computed: {
     loadNum () {
       return this.$store.state.loadNum
@@ -28,10 +34,11 @@ export default {
   methods: {
     ...mapActions([LOGIN_OUT]),
     toLoginOut () {
-      this.loginOut()
-      if (this.$router.currentRoute.meta.loginCheck) {
-        this.$router.push('/HelloWorld')
-      }
+      this.loginOut().then(res => {
+        if (this.$router.currentRoute.matched.some(r => r.meta.loginCheck && !r.meta.loginCheck(null))) {
+          this.$router.push(LOGIN_ROUTER)
+        }
+      })
     }
   }
 }

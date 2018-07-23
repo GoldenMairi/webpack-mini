@@ -2,13 +2,13 @@
   <div class="hello">
     <h1>\{{ msg }}</h1>
     <h3 @click="toLogin"><a>登录</a></h3>
-    will to path:\{{wantPath}}
+    <p v-if="$route.query.redirect">will to path:\{{$route.query.redirect}}</p>
   </div>
 </template>
 
 <script>
-import {LOGIN, SET_WANT_PATH} from '@/store/types'
-import {mapState, mapMutations, mapActions} from 'vuex'
+import {LOGIN} from '@/store/types'
+import {mapActions} from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -16,15 +16,12 @@ export default {
       msg: 'Your May Press Login(Btn)'
     }
   },
-  computed: mapState(['wantPath']),
   methods: {
-    ...mapMutations([SET_WANT_PATH]),
     ...mapActions([LOGIN]),
     toLogin () {
       this.login({userName: 'admin', password: '5a385be37520b62af6cfccfa440485b7'}).then(
         () => {
-          this.$router.push(this.wantPath || '/')
-          this.setWantPath(null)
+          this.$router.push(this.$route.query.redirect || '/')
         },
         ({msg}) => {
           console.error(msg)
