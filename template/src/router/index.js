@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => { // every
       next({
         replace,
         path: LOGIN_ROUTER,
-        query: {redirect: to.path}
+        query: {redirect: to.fullPath}
       })
     } else if (to.path == LOGIN_ROUTER) { // 去登录页
       next({replace, path: to.query.redirect || '/'})
