@@ -1,0 +1,10 @@
+$style-map: ( bgc:background-color, bgi:background-image, c:color, bc:border-color);
+$style-skins: blue-skin purple-skin !default;
+@mixin skin($key, $arr) {
+    $key-value: map-get($style-map, $key);
+    @each $value in $arr {
+        .#{nth($style-skins,index($arr,$value))} & {
+            #{$key-value}: $value
+        }
+    }
+}
