@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     getMap () {
-      this.axios('MAP', {area_id: 0}).then(res => {
+      {{axiosAlias}}('MAP', {area_id: 0}).then(res => {
         this.mapnum = res.data.length
       })
     }

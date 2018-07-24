@@ -42,6 +42,12 @@ module.exports = {
       type: 'string',
       message: 'Author',
     },
+    axiosAlias: {
+      type: 'string',
+      required: true,
+      message: 'set alias for Axios that you can use anywhere',
+      default: 'ax',
+    },
     lint: {
       type: 'confirm',
       message: 'Use ESLint to lint your code?'
@@ -67,6 +73,11 @@ module.exports = {
           short: 'none',
         },
       ],
+    },
+    devlint: {
+      when: 'lint',
+      type: 'confirm',
+      message: 'Use ESLint when dev?'
     },
     autoInstall: {
       type: 'list',

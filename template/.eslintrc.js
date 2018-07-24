@@ -72,5 +72,10 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 允许使用==,不强制使用===
     'eqeqeq': 'off'
+  },
+  globals: {
+    {{axiosAlias}}: false,
+    $:false,
+    jQuery:false
   }
 }
