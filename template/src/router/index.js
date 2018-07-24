@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
-import { DEAL_LOAD_NUM } from '../store/types'
+import { DEAL_LOAD_NUM, SET_CRT } from '../store/types'
 
 const HelloWorld = () => import('@/components/HelloWorld')
 const Youke = () => import('@/components/Youke')
@@ -70,8 +70,9 @@ router.beforeEach((to, from, next) => { // every
     next({replace})
   }
 })
-router.afterEach(() => {
+router.afterEach(to => {
   store.commit(DEAL_LOAD_NUM, 0)
+  store.commit(SET_CRT, to.path)
 })
 
 export default router
