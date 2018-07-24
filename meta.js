@@ -45,7 +45,7 @@ module.exports = {
     axiosAlias: {
       type: 'string',
       required: true,
-      message: 'set alias for Axios that you can use anywhere',
+      message: 'Set alias for Axios that you can use anywhere',
       default: 'ax',
     },
     lint: {
