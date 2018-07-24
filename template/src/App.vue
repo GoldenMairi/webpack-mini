@@ -8,8 +8,8 @@
       </div>
       <ul>
         <router-link tag="li" to="/Youke"><a>游客可进</a></router-link>
-        <router-link tag="li" to="/Logined"><a>登录可进</a></router-link>
-        <router-link tag="li" to="/Admin"><a>管理可进</a></router-link>
+        <router-link tag="li" to="/Logined"><a>git仓库（需登录）</a></router-link>
+        <router-link tag="li" to="/Admin"><a>其他（需登录）</a></router-link>
       </ul>
       <img src="./assets/logo.png">
       <router-view/>

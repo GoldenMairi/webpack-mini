@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/efence-service/': {
-				target: 'http://192.168.101.197:8088/efence-service/',
-				changeOrigin: true,
-				pathRewrite: {
-					'^/efence-service': '/'
-				}
-			}
+      // '/efence-service/': {
+			// 	target: 'http://192.168.101.197:8088/efence-service/',
+			// 	changeOrigin: true,
+			// 	pathRewrite: {
+			// 		'^/efence-service': '/'
+			// 	}
+			// }
     },
 
     // Various Dev Server settings

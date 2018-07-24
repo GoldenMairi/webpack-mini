@@ -1,7 +1,11 @@
 <template>
     <div>
-        <h1>登录可进页面</h1>
-        <h3 @click="getMap">MAP:\{{mapnum}}</h3>
+        <h1>git仓库:\{{repoList.length+'个'}}</h1>
+        <ul>
+          <li :key="repo.id" v-for="repo in repoList">
+            <p>\{{repo.name}}------<img style="height:26px;width:auto;" :src="repo.owner.avatar_url" alt="People"></p>
+          </li>
+        </ul>
     </div>
 </template>
 
@@ -9,15 +13,16 @@
 export default {
   data () {
     return {
-      mapnum: 0
+      repoList: []
     }
   },
   methods: {
-    getMap () {
-      {{axiosAlias}}('MAP', {area_id: 0}).then(res => {
-        this.mapnum = res.data.length
-      })
+    async getMap () {
+      this.repoList = await ax('REP')
     }
+  },
+  mounted () {
+    this.getMap()
   }
 }
 </script>

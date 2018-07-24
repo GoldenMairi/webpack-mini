@@ -29,10 +29,8 @@ export default getStore(new Vuex.Store({
     async [types.LOGIN] ({ commit }, data) {
       return new Promise(async (resolve, reject) => {
         try {
-          const { token } = (await {{axiosAlias}}('LOGIN', data))
-          const { user } = await {{axiosAlias}}('USER_INF', { token })
-          commit(types.SET_USER_INF, { token, user })
-          localStorage.userInf = JSON.stringify({ token, user })
+          localStorage.userInf = JSON.stringify({ token: data })
+          commit(types.SET_USER_INF, { token: data })
           resolve()
         } catch (error) {
           reject(error)

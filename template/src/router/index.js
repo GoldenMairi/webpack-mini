@@ -41,7 +41,7 @@ let router = new Router({
       name: 'Admin',
       component: Admin,
       meta: {
-        loginCheck: inf => !!inf && inf.user.account.userName == 'admin'
+        loginCheck: inf => !!inf
       }
     }, {
       path: '/*',
@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => { // every
   }
 })
 router.afterEach(to => {
-  store.commit(DEAL_LOAD_NUM, 0)
+  store.commit(DEAL_LOAD_NUM, {data: 0})
   store.commit(SET_CRT, to.path)
 })
 

@@ -4,38 +4,56 @@ import * as apis from './apis'
 import { DEAL_LOAD_NUM, LOGIN_OUT } from '../store/types'
 import { default as router, LOGIN_ROUTER } from '../router'
 
+// 处理入参格式
 const qsFn = params => qs.stringify(params, {
   allowDots: true,
   encode: false
 })
 
+// 解决相互引用问题
 let store
 export const getStore = s => {
   store = s
   return s
 }
 
-// axios实例
+// axios定制实例
 var instance = axios.create({
-  baseURL: '/efence-service/',
+  baseURL: 'https://api.github.com',
   transformRequest: qsFn,
   paramsSerializer: qsFn,
-  timeout: 10000,
-  validateStatus: status => status >= 200
+  timeout: 5000
 })
 
-// 添加响应拦截器
-instance.interceptors.response.use(response => {
-  if (typeof response.data == 'string') {
-    store.dispatch(LOGIN_OUT)
-    router.replace(LOGIN_ROUTER)
+// http request 拦截器
+instance.interceptors.request.use(config => {
+  if (store.state.userInf.token) {
+    config.headers.Authorization = `token ${store.state.userInf.token}`
   }
-  return response
-}, error => Promise.reject(error.response.data))
+  return config
+}, error => Promise.reject(error))
+
+// http response 拦截器
+instance.interceptors.response.use(response => response, error => {
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        // 401 清除token信息并跳转到登录页面
+        store.dispatch(LOGIN_OUT)
+        // 只有在当前路由不是登录页面才跳转
+        router.currentRoute.path !== LOGIN_ROUTER &&
+          router.replace({
+            path: LOGIN_ROUTER,
+            query: { redirect: router.currentRoute.path }
+          })
+    }
+  }
+  return Promise.reject(error.response.data)
+})
 
 // 接口行为配置项
 const apiCfg1 = {
-  code: 200,
+  code: null,
   load: false,
   codeErr: null,
   reject: null,
@@ -71,9 +89,9 @@ export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((res
     } else {
       resolve(data)
     }
-  }).catch(err => {
+  }).catch(error => {
     if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data: -1, crt})
-    reject(err)
-    if (apiCfg.reject) apiCfg.reject(err)
+    reject(error)
+    if (apiCfg.reject) apiCfg.reject(error)
   })
 })

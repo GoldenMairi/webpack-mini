@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <h1>\{{ msg }}</h1>
-    <h3 @click="toLogin"><a>登录</a></h3>
-    <p v-if="$route.query.redirect">will to path:\{{$route.query.redirect}}</p>
+    <input type="text" v-model="token" placeholder="Github Personal Token">
+    <h3 @click="toLogin"><a>登录</a><span v-if="$route.query.redirect">:\{{$route.query.redirect}}</span></h3>
   </div>
 </template>
 
@@ -13,13 +13,14 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      token: '14bcfc906120cd4afff8d905a6850740822ad135',
       msg: 'Your May Press Login(Btn)'
     }
   },
   methods: {
     ...mapActions([LOGIN]),
     toLogin () {
-      this.login({userName: 'admin', password: '5a385be37520b62af6cfccfa440485b7'}).then(
+      this.login(this.token).then(
         () => {
           this.$router.push(this.$route.query.redirect || '/')
         },
