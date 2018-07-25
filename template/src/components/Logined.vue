@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h1>git仓库:\{{repoList.length+'个'}}</h1>
+        <h1 class="custom-element">git仓库:\{{repoList.length+'个'}}</h1>
         <ul>
           <li :key="repo.id" v-for="repo in repoList">
-            <a :href="repo.svn_url" target="_blank">\{{repo.name}}</a>------<img style="height:26px;width:auto;" :src="repo.owner.avatar_url" alt="People">
+            <a :href="repo.svn_url" target="_blank">\{{repo.name}}</a>------<img :src="repo.owner.avatar_url" alt="People">
           </li>
         </ul>
     </div>
@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     async getMap () {
-      this.repoList = await ax('REP')
+      this.repoList = await {{axiosAlias}}('REP')
     }
   },
   mounted () {

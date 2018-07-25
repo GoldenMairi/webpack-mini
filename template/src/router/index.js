@@ -49,7 +49,7 @@ let router = new Router({
     }
   ]
 })
-router.beforeEach((to, from, next) => { // every
+router.beforeEach((to, from, next) => {
   const replace = from.path == LOGIN_ROUTER
   const routersWithCheck = to.matched.filter(r => r.meta.loginCheck)
   if (routersWithCheck.length > 0) {

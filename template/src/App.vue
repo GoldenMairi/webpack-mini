@@ -52,4 +52,13 @@ export default {
 
 <style lang="scss">
 @import './styles/index';
+#app {
+    text-align: center;
+    @include skin(c,#42b983 #ccec3a);
+    margin-top: 60px;
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+}
 </style>
