@@ -3,7 +3,7 @@
         <h1>git仓库:\{{repoList.length+'个'}}</h1>
         <ul>
           <li :key="repo.id" v-for="repo in repoList">
-            <p>\{{repo.name}}------<img style="height:26px;width:auto;" :src="repo.owner.avatar_url" alt="People"></p>
+            <a :href="repo.svn_url" target="_blank">\{{repo.name}}</a>------<img style="height:26px;width:auto;" :src="repo.owner.avatar_url" alt="People">
           </li>
         </ul>
     </div>

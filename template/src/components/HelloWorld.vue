@@ -3,6 +3,7 @@
     <h1>\{{ msg }}</h1>
     <input type="text" v-model="token" placeholder="Github Personal Token">
     <h3 @click="toLogin"><a>登录</a><span v-if="$route.query.redirect">:\{{$route.query.redirect}}</span></h3>
+    <a href="https://github.com/settings/tokens/new" target="_blank">generate your token</a>
   </div>
 </template>
 
