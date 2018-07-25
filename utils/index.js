@@ -92,7 +92,7 @@ function lintMsg(data) {
   return !data.autoInstall &&
     data.lint &&
     lintStyles.indexOf(data.lintConfig) !== -1
-    ? 'npm run lint -- --fix (or for yarn: yarn run lint --fix)\n  '
+    ? '(c)npm run lint -- --fix (or for yarn: yarn run lint --fix)\n  '
     : ''
 }
 
@@ -102,7 +102,7 @@ function lintMsg(data) {
  * @param {Object} data Data from the questionnaire
  */
 function installMsg(data) {
-  return !data.autoInstall ? 'npm install (or if using yarn: yarn)\n  ' : ''
+  return !data.autoInstall ? '(c)npm install (or if using yarn: yarn)\n  ' : ''
 }
 
 /**
