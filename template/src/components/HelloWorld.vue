@@ -13,7 +13,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      token: '14bcfc906120cd4afff8d905a6850740822ad135',
+      token: '14bcfc906120cd4afff8d905a6850740822ad135378',
       msg: 'Your May Press Login(Btn)'
     }
   },
