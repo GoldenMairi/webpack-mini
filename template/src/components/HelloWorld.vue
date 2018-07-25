@@ -35,7 +35,4 @@ export default {
 </script>
 
 <style lang="scss">
-h1, h2 ,h3{
-  font-weight: normal;
-}
 </style>

@@ -47,7 +47,8 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        publicPath: '../../'
       })
     } else {
       return ['vue-style-loader'].concat(loaders)
@@ -60,7 +61,17 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    scss: generateLoaders('sass').concat({
+      loader: 'sass-resources-loader',
+      options: {
+        resources: [
+          path.resolve(__dirname,'../frameworks/bootstrap/_variables.scss'),
+          path.resolve(__dirname,'../node_modules/bootstrap/scss/_functions.scss'),
+          path.resolve(__dirname,'../node_modules/bootstrap/scss/_variables.scss'),
+          path.resolve(__dirname,'../node_modules/bootstrap/scss/_mixins.scss')
+        ]
+      }
+    }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

@@ -1,0 +1,14 @@
+/*!定制说明
+ * 这里依照官方建议，选择性的引入部分scss，其中官方的三个文件
+ * _functions.scss _variables.scss _mixins.scss
+ * 一般在本文件引入
+ * 但为了方便在.vue文件使用mixins等，故在build/utils.js的sass-resources-loader中引入
+ * 所以用于更改全局变量的本地 _variables.scss 也于sass-resources-loader中引入
+ * 参考 (https://getbootstrap.com/docs/4.1/getting-started/theming/#variable-defaults)
+ */
+
+// Optional
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/code";
