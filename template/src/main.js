@@ -6,6 +6,8 @@ import hView from '../frameworks/hView'
 import {SET_USER_INF} from './store/types'
 import App from './App'
 
+import './styles/index.scss'
+
 Vue.prototype.axios = axios
 Vue.use(hView)
 Vue.config.productionTip = false

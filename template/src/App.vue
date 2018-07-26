@@ -6,11 +6,13 @@
         <router-link v-if="!$store.state.userInf" :to="loginRouter">登录</router-link>
         <a v-else @click="toLoginOut">退出</a>
       </div>
-      <ul>
-        <router-link tag="li" to="/Youke"><a>游客可进</a></router-link>
-        <router-link tag="li" to="/Logined"><a>git仓库（需登录）</a></router-link>
-        <router-link tag="li" to="/Admin"><a>其他（需登录）</a></router-link>
-      </ul>
+      <div class="container">
+        <div class="row">
+          <router-link class="col-sm-4" to="/Youke"><a>游客可进</a></router-link>
+          <router-link class="col-sm-4" to="/Logined"><a>git仓库（需登录）</a></router-link>
+          <router-link class="col-sm-4" to="/Admin"><a>其他（需登录）</a></router-link>
+        </div>
+      </div>
       <img src="./assets/logo.png">
       <router-view/>
     </div>
@@ -51,14 +53,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import './styles/index';
 #app {
     text-align: center;
-    @include skin(c,#42b983 #ccec3a);
+    @include skin(c, var(--orange) var(--info));
     margin-top: 60px;
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
 }
 </style>

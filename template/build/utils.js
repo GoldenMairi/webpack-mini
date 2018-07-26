@@ -66,6 +66,7 @@ exports.cssLoaders = function (options) {
       options: {
         resources: [
           path.resolve(__dirname,'../frameworks/bootstrap/_variables.scss'),
+          path.resolve(__dirname,'../frameworks/bootstrap/_mixins.scss'),
           path.resolve(__dirname,'../node_modules/bootstrap/scss/_functions.scss'),
           path.resolve(__dirname,'../node_modules/bootstrap/scss/_variables.scss'),
           path.resolve(__dirname,'../node_modules/bootstrap/scss/_mixins.scss')
