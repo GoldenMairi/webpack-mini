@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>登录可进页面</h1>
+        <h3 class="text-primary text-center">登录可进页面</h3>
     </div>
 </template>
 

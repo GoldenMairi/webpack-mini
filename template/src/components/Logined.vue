@@ -1,11 +1,14 @@
 <template>
     <div>
-        <h1>git仓库:\{{repoList.length+'个'}}</h1>
-        <ul>
-          <li :key="repo.id" v-for="repo in repoList">
-            <a :href="repo.svn_url" target="_blank">\{{repo.name}}</a>------<img :src="repo.owner.avatar_url" alt="People">
-          </li>
-        </ul>
+      <h3 class="text-primary text-center">仓库数：\{{repoList.length}}</h3>
+        <div class="container">
+          <div class="media" :key="repo.id" v-for="repo in repoList">
+            <img style="width:62px;" class="align-self-start mr-3" :src="repo.owner.avatar_url" alt="People">
+            <div class="media-body">
+              <p><a :href="repo.svn_url" target="_blank">\{{repo.name}}</a></p>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -18,7 +21,7 @@ export default {
   },
   methods: {
     async getMap () {
-      this.repoList = await {{axiosAlias}}('REP')
+      this.repoList = await ax('REP')
     }
   },
   mounted () {

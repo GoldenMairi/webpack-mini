@@ -1,9 +1,15 @@
 <template>
-  <div class="hello">
-    <h1>\{{ msg }}</h1>
-    <input type="text" v-model="token" placeholder="Github Personal Token">
-    <h3 @click="toLogin"><a>登录</a><span v-if="$route.query.redirect">:\{{$route.query.redirect}}</span></h3>
-    <a href="https://github.com/settings/tokens/new" target="_blank">generate your token</a>
+  <div class="container">
+    <div class="row">
+      <form class="col-md-6 offset-md-3 text-center" action="">
+        <img class="mb-4" src="../assets/logo.png" alt="Logo" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <input v-model="token" class="form-control" placeholder="Git Personal Token">
+        <div v-if="$route.query.redirect">You will goto <span class="text-warning">\{{$route.query.redirect}}</span></div>
+        <button @click="toLogin" class="btn btn-lg btn-primary btn-block mt-2" type="submit">Sign in</button>
+        <a class="btn btn-lg btn-info btn-block" href="https://github.com/settings/tokens/new" target="_blank">Generate Your Token</a>
+      </form>
+    </div>
   </div>
 </template>
 

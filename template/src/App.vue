@@ -1,21 +1,19 @@
 <template>
-  <div :class="skin+'-skin'">
-    <div id="app">
-      <p>loadNum:\{{loadNum}}|<span @click="tabskin">换肤</span></p>
-      <div v-if="$router.currentRoute.path!=loginRouter">
-        <router-link v-if="!$store.state.userInf" :to="loginRouter">登录</router-link>
-        <a v-else @click="toLoginOut">退出</a>
-      </div>
-      <div class="container">
-        <div class="row">
-          <router-link class="col-sm-4" to="/Youke"><a>游客可进</a></router-link>
-          <router-link class="col-sm-4" to="/Logined"><a>git仓库（需登录）</a></router-link>
-          <router-link class="col-sm-4" to="/Admin"><a>其他（需登录）</a></router-link>
-        </div>
-      </div>
-      <img src="./assets/logo.png">
-      <router-view/>
+  <div :class="[skin+'-skin','d-flex flex-column']">
+    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto title-name">template-mini
+        <small>loadNum:\{{loadNum}}</small>
+      </h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <router-link class="p-2 text-dark" to="/Youke">游客</router-link>
+        <router-link class="p-2 text-dark" to="/Logined">git仓库</router-link>
+        <router-link class="p-2 text-dark" to="/Admin">其他</router-link>
+        <a class="p-2 text-green" href="#" @click="tabskin">换肤</a>
+      </nav>
+      <router-link class="btn btn-outline-primary" v-if="!$store.state.userInf" :to="loginRouter">登录</router-link>
+      <a href="#" class="btn btn-outline-primary" v-else @click="toLoginOut">退出</a>
     </div>
+    <router-view class="flex-grow-1" />
   </div>
 </template>
 
@@ -53,9 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-    text-align: center;
-    @include skin(c, var(--orange) var(--info));
-    margin-top: 60px;
+.title-name {
+    @include skin(c, var(--orange) var(--purple));
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>游客可进页面</h1>
+        <h3 class="text-primary text-center">游客可进页面</h3>
         <div @click="changeOption" style="height:300px">
           <h-echarts :option="option"></h-echarts>
         </div>
