@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async getMap () {
-      this.repoList = await ax('REP')
+      this.repoList = await {{axiosAlias}}('REP')
     }
   },
   mounted () {
