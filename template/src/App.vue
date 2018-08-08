@@ -1,19 +1,34 @@
 <template>
-  <div :class="[skin+'-skin','d-flex flex-column']">
-    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto title-name">template-mini
-        <small>loadNum:\{{loadNum}}</small>
-      </h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <router-link class="p-2 text-dark" to="/Youke">游客</router-link>
-        <router-link class="p-2 text-dark" to="/Logined">git仓库</router-link>
-        <router-link class="p-2 text-dark" to="/Admin">其他</router-link>
-        <a class="p-2 text-green" href="#" @click="tabskin">换肤</a>
-      </nav>
-      <router-link class="btn btn-outline-primary" v-if="!$store.state.userInf" :to="loginRouter">登录</router-link>
-      <a href="#" class="btn btn-outline-primary" v-else @click="toLoginOut">退出</a>
+  <div :class="['h-100 d-flex flex-column',skin+'-skin']">
+    <div class="navbar navbar-expand-md navbar-light bg-light">
+      <a href="#" class="navbar-brand">
+        <img src="./assets/logo.png" width="30" height="30" class="align-top" alt="logo">
+        template-mini
+      </a>
+      <small class="navbar-text loading">loading:\{{loadNum}}</small>
+      <div class="navbar-collapse justify-content-end">
+        <nav class="nav justify-content-center">
+          <router-link class="nav-link py-1 px-2" to="/Youke">游客</router-link>
+          <router-link class="nav-link py-1 px-2" to="/Logined">git仓库</router-link>
+          <router-link class="nav-link py-1 px-2" to="/Admin">其他</router-link>
+        </nav>
+        <nav class="nav justify-content-center">
+          <span class="btn btn-sm btn-outline-primary mx-2" @click="tabskin">换肤</span>
+          <span class="btn btn-sm btn-outline-primary" v-if="$store.state.userInf" @click="toLoginOut">退出</span>
+          <router-link class="btn btn-sm btn-outline-primary" v-else :to="loginRouter">登录</router-link>
+        </nav>
+      </div>
     </div>
-    <router-view class="flex-grow-1" />
+    <div class="container-fluid flex-fill">
+      <div class="row">
+        <div class="col-12 col-md-3 col-xl-2">
+          aside
+        </div>
+        <div class="col-12 col-md-9 col-xl-10">
+          <router-view />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +41,7 @@ export default {
   data () {
     return {
       skin: 'blue',
+      show: false,
       loginRouter: LOGIN_ROUTER
     }
   },
@@ -41,7 +57,11 @@ export default {
     },
     toLoginOut () {
       this.loginOut().then(res => {
-        if (this.$router.currentRoute.matched.some(r => r.meta.loginCheck && !r.meta.loginCheck(null))) {
+        if (
+          this.$router.currentRoute.matched.some(
+            r => r.meta.loginCheck && !r.meta.loginCheck(null)
+          )
+        ) {
           this.$router.push(LOGIN_ROUTER)
         }
       })
@@ -51,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-.title-name {
-    @include skin(c, var(--orange) var(--purple));
+.loading {
+  @include skin(c, var(--orange) var(--purple));
 }
 </style>
