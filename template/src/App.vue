@@ -1,16 +1,16 @@
 <template>
-  <div :class="['h-100 d-flex flex-column',skin+'-skin']">
-    <div class="navbar navbar-expand-md navbar-light bg-light">
+  <div :class="[skin+'-skin']">
+    <div class="sticky-top navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm">
       <a href="#" class="navbar-brand">
-        <img src="./assets/logo.png" width="30" height="30" class="align-top" alt="logo">
+        <img src="./assets/logo.png" style="height:2rem" class="align-top" alt="logo">
         template-mini
       </a>
       <small class="navbar-text loading">loading:\{{loadNum}}</small>
       <div class="navbar-collapse justify-content-end">
         <nav class="nav justify-content-center">
-          <router-link class="nav-link py-1 px-2" to="/Youke">游客</router-link>
-          <router-link class="nav-link py-1 px-2" to="/Logined">git仓库</router-link>
-          <router-link class="nav-link py-1 px-2" to="/Admin">其他</router-link>
+          <router-link class="nav-link" to="/Youke">游客</router-link>
+          <router-link class="nav-link" to="/Logined">git仓库</router-link>
+          <router-link class="nav-link" to="/Admin">其他</router-link>
         </nav>
         <nav class="nav justify-content-center">
           <span class="btn btn-sm btn-outline-primary mx-2" @click="tabskin">换肤</span>
@@ -19,10 +19,10 @@
         </nav>
       </div>
     </div>
-    <div class="container-fluid flex-fill">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-md-3 col-xl-2">
-          aside
+        <div class="col-12 col-md-3 col-xl-2" id="asider">
+          <h-asider></h-asider>
         </div>
         <div class="col-12 col-md-9 col-xl-10">
           <router-view />
@@ -73,5 +73,16 @@ export default {
 <style lang="scss">
 .loading {
   @include skin(c, var(--orange) var(--purple));
+}
+#asider{
+  @include media-breakpoint-up(md) {
+    $header-h: 3.625rem;//必须准确的计算出md的头部高度
+    position: sticky;
+    z-index: var(--breakpoint-xl);
+    height: calc(100vh - #{$header-h} - 1px);
+    top: calc(3.625rem + 1px);
+    overflow: hidden;
+    border-right: $border-width solid $border-color;
+  }
 }
 </style>

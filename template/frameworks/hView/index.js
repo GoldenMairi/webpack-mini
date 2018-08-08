@@ -1,7 +1,9 @@
 const prefix = 'h';
 import echarts from './components/echarts'
+import asider from './components/asider'
 const iview = {
-	echarts
+	echarts,
+	asider
 }
 const install = (Vue, opts = {}) => {
 	Object.keys(iview).forEach(key => {

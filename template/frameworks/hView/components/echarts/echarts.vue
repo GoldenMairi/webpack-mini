@@ -1,5 +1,5 @@
 <template>
-	<div style="height: 100%;" v-resize="resize"></div>
+	<div class="h-100" style="overflow: hidden;" v-resize="resize"></div>
 </template>
 
 <script>
