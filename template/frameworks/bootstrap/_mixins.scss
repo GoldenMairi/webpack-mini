@@ -1,10 +1,49 @@
-$style-map: ( bgc:background-color, bgi:background-image, c:color, bc:border-color);
-$style-skins: blue-skin purple-skin !default;
+// Variables
+//
+// just for Mixins below
+
+// prefix
+// you should set body's class like #{prefix}-skin
+$style-skins: blue purple !default;
+
+$scrollbar-width: 10px !default;
+
+// Mixins
+//
+// custom-made mixins
+
+// skin
 @mixin skin($key, $arr) {
+    $style-map: ( bgc:background-color, bgi:background-image, c:color, bc:border-color);
     $key-value: map-get($style-map, $key);
     @each $value in $arr {
-        .#{nth($style-skins,index($arr,$value))} & {
-            #{$key-value}: $value
+        .#{nth($style-skins,index($arr,$value))}-skin & {
+            #{$key-value}: $value !important;
         }
     }
+}
+
+// scrollbar
+@mixin scroll($wd: $scrollbar-width, $hover: false) {
+    &::-webkit-scrollbar {
+        width: $wd;
+        height: $wd;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(50, 50, 50, 0.25);
+        border: $wd/5 solid transparent;
+        border-radius: $wd;
+        background-clip: padding-box;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(50, 50, 50, 0.5);
+    }
+    &::-webkit-scrollbar-track {
+        background-color: rgba(50, 50, 50, 0.05);
+    }
+    @if($hover) {
+        &:not(:hover) {
+            overflow-y: hidden !important;
+        }
+    } // -webkit-overflow-scrolling: touch;
 }

@@ -84,5 +84,8 @@ export default {
     overflow: hidden;
     border-right: $border-width solid $border-color;
   }
+  >div{
+    @include scroll(8px,true);
+  }
 }
 </style>
