@@ -76,16 +76,12 @@ export default {
 }
 #asider{
   @include media-breakpoint-up(md) {
-    $header-h: 3.625rem;//必须准确的计算出md的头部高度
+    $header-h: calc(3.625rem + 1px);//必须准确的计算出md的头部高度
     position: sticky;
     z-index: var(--breakpoint-xl);
-    height: calc(100vh - #{$header-h} - 1px);
-    top: calc(3.625rem + 1px);
+    height: calc(100vh - #{$header-h});
+    top: $header-h;
     overflow: hidden;
-    border-right: $border-width solid $border-color;
-  }
-  >div{
-    @include scroll(8px,true);
   }
 }
 </style>
