@@ -25,7 +25,7 @@ module.exports = {
       return templateVersion
     },
   },
-
+  skipInterpolation: ['frameworks/**'],
   prompts: {
     name: {
       type: 'string',
