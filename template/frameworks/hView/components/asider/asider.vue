@@ -45,6 +45,10 @@ export default {
       color: #fff !important;
       background-color: $hover-bg;
     }
+    &.router-child-active {
+      color: darken(#fff,15%) !important;
+      background-color: darken($hover-bg,15%);
+    }
   }
 }
 </style>
