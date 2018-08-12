@@ -1,11 +1,16 @@
 <template>
-    <ul class="nav">
-        <hh-li v-for="li in ul" :key="li.path" :li="li" :prefix="prefix?prefix+'/':''" :level="level" :father="father"></hh-li>
+    <ul class="nav" :class="{'d-none':level!==1&&!look}">
+        <hh-li @putInterest="getInterest" v-for="li in ul" :key="li.path" :li="li" :prefix="prefix?prefix+'/':''" :leftLevel="leftLevel" :level="level" :pre-look="look" :interest="interest"></hh-li>
     </ul>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      interest:""
+    }
+  },
   props: {
     ul: {
       type: Array,
@@ -15,13 +20,22 @@ export default {
       type: String,
       default: () => ""
     },
+    leftLevel: {
+      type: Number,
+      default: () => 1
+    },
     level: {
       type: Number,
       default: () => 1
     },
-    father: {
+    look: {
       type: Boolean,
       default: () => true
+    }
+  },
+  methods:{
+    getInterest(interest){
+      this.interest = interest;
     }
   }
 };

@@ -1,21 +1,20 @@
 <template>
-    <li>
-        <component @click="self=!self" v-bind:is="li.children?'a':'router-link'" class="nav-link" :class="{'router-child-active':light}" :to="thisPath">
+    <li @click.stop="putInterest" class="position-relative">
+        <component @click="nextLook=!nextLook" v-bind:is="li.children?'a':'router-link'" class="nav-link" :class="{'router-child-active':childActive}" :to="thisPath">
             <i class="mr-2 ic" :class="li.meta&&li.meta.icon?li.meta.icon:'ic-right'"></i>
-            <i v-if="li.children" class="ic float-right text-muted" :class="[visible?'ic-unfold':'ic-left']"></i>
+            <i v-if="li.children" class="ic float-right text-muted" :class="[nextLook?'ic-unfold':'ic-left']"></i>
             <i v-if="li.meta&&li.meta.badge" class="float-right mt-1 badge" :class="['badge-'+(li.meta.badge.theme||'primary')]">35</i>
             <span>{{li.meta&&li.meta.name?li.meta.name:li.path.replace(/\//, '')}}</span>
         </component>
-        <hh-ul v-if="li.children" v-show="visible" :ul="li.children" :prefix="prefix + li.path" :level="level+1" :father="visible"></hh-ul>
+        <hh-ul :class="{right}" v-if="li.children" :ul="li.children" :prefix="prefix + li.path" :leftLevel="leftLevel" :level="level+1" :look="nextLook"></hh-ul>
     </li>
 </template>
 
 <script>
-const honourLevel = 0;
 export default {
   data() {
     return {
-      self: false
+      nextLook: false
     };
   },
   props: {
@@ -24,30 +23,48 @@ export default {
       type: String,
       default: () => ""
     },
+    leftLevel: {
+      type: Number,
+      default: () => 1
+    },
     level: {
       type: Number,
       default: () => 1
     },
-    father: {
+    preLook: {
       type: Boolean,
       default: () => true
+    },
+    interest :{
+      type: String,
+      default: ()=> ""
     }
   },
   computed: {
+    right() {
+      return this.level>this.leftLevel;
+    },
     thisPath() {
       return this.prefix + this.li.path;
     },
-    light() {
+    childActive() {
       return (
         this.$route.path.indexOf(this.thisPath) === 0 &&
         this.$route.path !== this.thisPath
       );
+    }
+  },
+  methods:{
+    putInterest(){
+      this.$emit('putInterest', this.li.path)
+    }
+  },
+  watch:{
+    preLook(now){
+      if(!now)this.nextLook = false
     },
-    visible() {
-      if (!this.father && this.self) {
-        this.self = false;
-      }
-      return this.level <= honourLevel || (this.father && this.self);
+    interest(now){
+      if(now!=this.li.path)this.nextLook = false
     }
   }
 };

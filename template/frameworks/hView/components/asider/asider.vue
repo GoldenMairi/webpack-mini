@@ -1,6 +1,6 @@
 <template>
-	<div class="asider-style h-100 text-light pb-4" style="overflow-y:auto">
-		<hh-ul :ul="$router.options.routes.filter(item=>item.component&&item.meta.tag!='login')"></hh-ul>
+	<div class="asider-style h-100 text-light pb-4">
+		<hh-ul v-clickoutside="clearInterest" ref="asider" :leftLevel="leftLevel" :look="look" :ul="$router.options.routes.filter(item=>item.component&&item.meta.tag!='login')"></hh-ul>
 	</div>
 </template>
 
@@ -8,11 +8,31 @@
 import Vue from 'vue'
 import ul from './ul'
 import li from './li'
+import clickoutside from '../../directives/clickoutside'
 export default {
+  data(){
+    return{
+      look:true
+    }
+  },
+  props:{
+    leftLevel: {
+      type: Number,
+      default: () => 1
+    }
+  },
+  directives:{
+    clickoutside
+  },
 	created(){
 		Vue.component('hh-ul', ul)
 		Vue.component('hh-li', li)
-	}
+	},
+  methods:{
+    clearInterest(){
+      this.$refs.asider.getInterest('')
+    }
+  }
 };
 </script>
 
@@ -21,12 +41,14 @@ export default {
   $asider-bg: #181f24;
   $nav-bg-1: #181f24;
   $nav-bg-2: #181f24;
-  $nav-bg-3: #0d1215;
+  $nav-bg-3: #181f24;
   $hover-bg: #2c3942;
 
+  width:200px;
   background-color: $asider-bg;
   @include scroll(6px, false, $asider-bg);
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
   .nav {
     flex-direction: column;
     background-color: $nav-bg-1;
@@ -35,6 +57,12 @@ export default {
       .nav {
         background-color: $nav-bg-3;
       }
+    }
+    &.right{
+      width: 100%;
+      position: absolute;
+      left: 100%;
+      top: 0;
     }
   }
   a {
