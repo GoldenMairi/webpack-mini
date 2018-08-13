@@ -18,8 +18,13 @@
       <div id="asider-nav">
         <h-asider :leftLevel="1" class="flex-shrink-0"></h-asider>
       </div>
-      <div class="flex-fill" style="overflow: auto;">
-        <router-view />
+      <div class="flex-fill d-flex flex-column">
+        <ul class="flex-shrink-0 breadcrumb mb-0 rounded-0 bg-dark text-light">
+          <li v-for="p in $route.matched" :key="p.path" class="breadcrumb-item">\{{p.meta&&p.meta.name?p.meta.name:p.path.split('/').pop()}}</li>
+        </ul>
+        <div class="flex-fill" style="overflow: auto;">
+          <router-view />
+        </div>
       </div>
     </div>
   </div>

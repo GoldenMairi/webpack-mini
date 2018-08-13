@@ -1,9 +1,9 @@
 <template>
     <li @click.stop="putInterest" class="position-relative">
-        <component @click="nextLook=!nextLook" v-bind:is="li.children?'a':'router-link'" class="nav-link" :class="{'router-child-active':childActive}" :to="thisPath">
+        <component @click="nextLook=right?nextLook:!nextLook" v-bind:is="li.children?'a':'router-link'" class="nav-link" :class="{'router-child-active':childActive}" :to="thisPath">
             <i class="mr-2 ic" :class="li.meta&&li.meta.icon?li.meta.icon:'ic-right'"></i>
-            <i v-if="li.children" class="ic float-right text-muted" :class="[nextLook?'ic-unfold':'ic-left']"></i>
             <i v-if="li.meta&&li.meta.badge" class="float-right mt-1 badge" :class="['badge-'+(li.meta.badge.theme||'primary')]">35</i>
+            <i v-if="li.children&&!right" class="ic float-right text-muted" :class="[nextLook?'ic-unfold':'ic-left']"></i>
             <span>{{li.meta&&li.meta.name?li.meta.name:li.path.replace(/\//, '')}}</span>
         </component>
         <hh-ul :class="{right}" v-if="li.children" :ul="li.children" :prefix="prefix + li.path" :leftLevel="leftLevel" :level="level+1" :look="nextLook"></hh-ul>

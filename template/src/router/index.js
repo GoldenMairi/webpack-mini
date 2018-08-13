@@ -34,7 +34,8 @@ let router = new Router({
       path: DEFAULT_ROUTER,
       component: Youke,
       meta: {
-        icon: 'ic-rest text-success'
+        icon: 'ic-rest text-success',
+        name: '游客'
       }
     },
     {
@@ -61,6 +62,10 @@ let router = new Router({
       redirect: '/UiKit/Buttons',
       component: Dir,
       meta: {
+        badge: {
+          state: 'icons',
+          theme: 'success'
+        },
         icon: 'ic-favor'
       },
       children: [{
