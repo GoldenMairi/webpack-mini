@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import ul from './ul'
-import li from './li'
 import clickoutside from '../../directives/clickoutside'
 export default {
+  components: {
+    'hh-ul': () => import("./ul")
+  },
   data(){
     return{
       look:true,
@@ -28,10 +28,6 @@ export default {
   directives:{
     clickoutside
   },
-	created(){
-		Vue.component('hh-ul', ul)
-		Vue.component('hh-li', li)
-	},
   methods:{
     clearInterest(){
       this.$refs.asider.getInterest('')

@@ -12,6 +12,9 @@
 
 <script>
 export default {
+  components: {
+    'hh-ul': () => import("./ul")
+  },
   data() {
     return {
       nextLook: false

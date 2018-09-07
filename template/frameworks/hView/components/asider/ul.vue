@@ -6,6 +6,9 @@
 
 <script>
 export default {
+  components: {
+    'hh-li': () => import("./li")
+  },
   data(){
     return{
       interest:""
