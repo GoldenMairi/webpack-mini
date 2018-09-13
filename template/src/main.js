@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import router from './router'
-import axios from './axios'
 import store from './store'
 import hView from '../frameworks/hView'
 import {SET_USER_INF} from './store/types'
@@ -8,7 +7,6 @@ import App from './App'
 
 import './styles/index.scss'
 
-Vue.prototype.axios = axios
 Vue.use(hView)
 Vue.config.productionTip = false
 

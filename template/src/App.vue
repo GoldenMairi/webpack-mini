@@ -5,7 +5,7 @@
         <img src="./assets/logo.png" style="height:2rem" class="align-top" alt="logo">
         template-mini
       </a>
-      <small class="navbar-text loading">loading:\{{loadNum}}</small>
+      <small class="navbar-text loading">loading:\{{$store.state.loadNum}}</small>
       <div class="navbar-collapse justify-content-end">
         <nav class="nav justify-content-center">
           <span class="btn btn-sm btn-outline-primary mx-2" @click="tabskin">换肤</span>
@@ -41,11 +41,6 @@ export default {
       skin: 'blue',
       show: false,
       loginRouter: LOGIN_ROUTER
-    }
-  },
-  computed: {
-    loadNum () {
-      return this.$store.state.loadNum
     }
   },
   methods: {

@@ -18,11 +18,11 @@ export const getStore = s => {
 }
 
 // axios定制实例
-var instance = axios.create({
+const instance = axios.create({
   baseURL: 'https://api.github.com',
   transformRequest: qsFn,
   paramsSerializer: qsFn,
-  timeout: 5000
+  timeout: 10000
 })
 
 // http request 拦截器
@@ -63,14 +63,10 @@ const apiCfg1 = {
 export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
   const crt = store.state.crt
   const [method, url, apiCfg2 = {}] = apis[apiKey]
-  const apiCfg = Object.assign({}, apiCfg1, apiCfg2, apiCfg3)
+  const apiCfg = {...apiCfg1, ...apiCfg2, ...apiCfg3}
   if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data: 1})
   if (apiCfg.param) {
-    params = {...Object.entries(apiCfg.param).reduce((obj, [key, fn]) => {
-      obj[key] = fn(store.state)
-      return obj
-    }, {}),
-    ...params}
+    params = {...Object.entries(apiCfg.param).reduce((obj, [key, fn]) => ({...obj, [key]: fn(store.state)}), {}), ...params}
   }
   instance({
     url,
