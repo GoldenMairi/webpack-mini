@@ -24,4 +24,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 使用vue-router
 - 使用scss
 - 使用vuex
-- 使用axios
+- 使用axios(使用示例：await {{axiosAlias}}('REP'))
