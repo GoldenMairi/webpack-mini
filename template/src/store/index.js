@@ -6,8 +6,10 @@ Vue.use(Vuex)
 
 export default getStore(new Vuex.Store({
   state: {
-    // 用户信息
-    userInf: {
+    // 用户登录信息
+    userInf: null,
+    // 其他共享数据
+    other: {
       user: {
         author: '名字',
         area: '地区'
@@ -20,7 +22,7 @@ export default getStore(new Vuex.Store({
   },
   mutations: {
     [tps.SET_USER_INF] (state, data) {
-      state.userInf = { ...state.userInf, ...data }
+      state.userInf = data
     },
     [tps.DEAL_LOAD_NUM] (state, { data, crt }) {
       if (data === 0) {

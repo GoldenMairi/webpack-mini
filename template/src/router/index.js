@@ -105,9 +105,9 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const replace = from.path === LOGIN_ROUTER
   const routersWithCheck = to.matched.filter(r => r.meta.loginCheck)
-  if (routersWithCheck.length === 0) return next({ replace })
-  if (routersWithCheck.every(r => r.meta.loginCheck(store.state.userInf))) return next({ replace })
-  // 没登录
+  // 校验通过=>跳转
+  if (routersWithCheck.length === 0 || routersWithCheck.every(r => r.meta.loginCheck(store.state.userInf))) { return next({ replace }) }
+  // 需要登录=>登录（跳转的页面只能是非登陆页，所以登录后要重定向）
   if (!store.state.userInf) {
     return next({
       replace,
@@ -115,9 +115,9 @@ router.beforeEach((to, from, next) => {
       query: { redirect: to.fullPath }
     })
   }
-  // 去登录页
+  // 重复登录=>跳转到登录URL后的重定向页或首页
   if (to.path == LOGIN_ROUTER) return next({ replace, path: to.query.redirect || '/' })
-  // 无or有历史页
+  // 权限不够=>原先有页面则不跳，否则跳首页
   next({ replace, path: from.path == '/' ? '/' : false })
 })
 router.afterEach(to => {

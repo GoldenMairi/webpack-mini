@@ -60,9 +60,9 @@ const apiCfg1 = {
   param: null
 }
 
-export default (apiKey, params, apiCfg3 = {}, axiosCfg = {}) => new Promise((resolve, reject) => {
+export default (apiKey, params, apiCfg3, axiosCfg) => new Promise((resolve, reject) => {
   const crt = store.state.crt
-  const [method, url, apiCfg2 = {}] = apis[apiKey]
+  const [method, url, apiCfg2] = apis[apiKey]
   const apiCfg = {...apiCfg1, ...apiCfg2, ...apiCfg3}
   if (apiCfg.load) store.commit(DEAL_LOAD_NUM, {data: 1})
   if (apiCfg.param) {
