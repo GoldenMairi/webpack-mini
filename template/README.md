@@ -55,4 +55,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   ```
   ##### 共享状态
   当前状态有 `userInf`用户登录信息，`loadNum`当前页loading的请求数，`crt`当前页路由
-  并且封装了登录、退出的 [vuex actions](https://vuex.vuejs.org/zh/guide/actions.html)
+  并且封装了登录、退出的[vuex actions](https://vuex.vuejs.org/zh/guide/actions.html)
